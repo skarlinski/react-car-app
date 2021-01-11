@@ -26,11 +26,11 @@ class App extends React.Component {
     // gets the json
     // Code to put json in result
     // 'axios.get('/cars.json')' returns a Promise
-    axios.get('https://dog.ceo/api/breeds/list/all').then( (result) => {
+    axios.get('/cars.json').then( (result) => {
       console.log(result);
-      // const newCars = result.data.map(car => new CarModel(car.brand, car.model, car.year, car.km))
-      //console.log(newCars);
-      //this.setState({carsData: newCars});
+      const newCars = result.data.map(car => new CarModel(car.brand, car.model, car.year, car.km))
+      console.log(newCars);
+      this.setState({carsData: newCars});
     });
     
     // returns result
