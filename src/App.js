@@ -1,19 +1,40 @@
 import React from 'react';
+import axios from 'axios';
+
 import Container from 'react-bootstrap/Container';
 import './App.css';
 import CarsComp from './components/CarsView/CarsView';
 import CarModel from './data-models/CarModel';
 
-function App() {
-  const carsData = [];
-  carsData.push(new CarModel("Toyota", "Yaris", 2002, 230000));
-  carsData.push(new CarModel("Toyota", "Corola", 2015, 105000));
-  carsData.push(new CarModel("Hyundai", "i30", 2010, 150000));
-  return (
-    <Container>
-      <CarsComp cars={carsData}/>
-    </Container>
-  );
+class App extends React.Component {  
+  constructor(props){
+    super(props);
+    this.state = {
+      carsData: []
+    }
+  }
+  render(){
+    // Component will be rendered the data arrives
+    // When the data arrive - nothing will happen
+    return (
+      <Container>
+        <CarsComp cars={this.state.carsData}/>
+      </Container> 
+    );
+  }
+  componentDidMount(){
+    // gets the json
+    // Code to put json in result
+    // 'axios.get('/cars.json')' returns a Promise
+    axios.get('https://dog.ceo/api/breeds/list/all').then( (result) => {
+      console.log(result);
+      // const newCars = result.data.map(car => new CarModel(car.brand, car.model, car.year, car.km))
+      //console.log(newCars);
+      //this.setState({carsData: newCars});
+    });
+    
+    // returns result
+  }
 }
 
 export default App;
