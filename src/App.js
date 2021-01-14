@@ -10,6 +10,7 @@ import CarsComp from './components/CarsView/CarsView';
 import CarModel from './data-models/CarModel';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import HomeComp from './components/HomeComp';
+import CarDetails from './components/CarDetails';
 
 
 class App extends React.Component {  
@@ -25,6 +26,16 @@ class App extends React.Component {
     // 1. Wrap the whole app in HashRouter / BrowserRouter
     // 2. Add Routes for different urls
     // 3. Add Switch to make sure only one Route is active
+
+    // WildCard routing - routing with a variable
+    // 1. Created a route with /:VARIABLE_NAME
+    // 2. Inside the route we rendered a component (CarDetails)
+    // Inside carDetails:
+    // 3. we used useParams() to get the wildcard part of the url & stored in a variable
+    // 4. We used this variable to access items from our data
+    // Optional
+    // 5. Solved an ASYNC problem using conditional rendering
+
     return (
       <HashRouter>
               <Container>
@@ -34,15 +45,19 @@ class App extends React.Component {
                     <li><a href="/#/cars">Cars View</a></li>
                   </ul>
                 </nav>
-                <Switch>              
-                  <Route path="/cars">
+                <Switch>
+                  <Route exact path="/cars/:id">
+                    {(this.state.carsData.length > 0)?<CarDetails cars={this.state.carsData}/> : []}
+                  </Route>
+                  <Route exact path="/cars">
                     <h1> Welcome to /cars !</h1>
                     <CarsComp cars={this.state.carsData}/>
                   </Route>
 
-                  <Route  path="/">
+                  <Route exact path="/">
                     <HomeComp/>
                   </Route>
+
                 </Switch>
               </Container>
       </HashRouter>
@@ -53,9 +68,10 @@ class App extends React.Component {
     // Code to put json in result
     // 'axios.get('/cars.json')' returns a Promise
     axios.get('/cars.json').then( (result) => {
-      console.log(result);
+
       const newCars = result.data.map(car => new CarModel(car.brand, car.model, car.year, car.km))
-      console.log(newCars);
+
+      console.log('Ajax finished loading'); 
       this.setState({carsData: newCars});
     });
     
