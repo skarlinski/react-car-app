@@ -9,6 +9,7 @@ import './App.css';
 import CarsComp from './components/CarsView/CarsView';
 import CarModel from './data-models/CarModel';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import HomeComp from './components/HomeComp';
 
 
 class App extends React.Component {  
@@ -40,8 +41,7 @@ class App extends React.Component {
                   </Route>
 
                   <Route  path="/">
-                        <h1>Welcome Home</h1>
-                        <p> HomePage should only appear in '/' path</p>
+                    <HomeComp/>
                   </Route>
                 </Switch>
               </Container>
