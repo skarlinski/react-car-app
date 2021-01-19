@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table';
+import { Table } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 class CarsComp extends React.Component{
@@ -41,7 +41,7 @@ class CarsComp extends React.Component{
            carTableRows.push(rowContent);
        }
        if(this.state.redirectIndex > -1) {
-           return (<Redirect to={`/cars/${this.state.redirectIndex}`}></Redirect>);
+           return (<Redirect push to={`/cars/${this.state.redirectIndex}`}></Redirect>);
        }
        return ( 
        <Table striped hover>
